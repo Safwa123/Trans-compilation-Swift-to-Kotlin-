@@ -1,0 +1,97 @@
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        App()
+    }
+}
+
+@main
+struct TestApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
+struct CardItem: View {
+    let title: String
+    let image: Image
+
+    var body: some View {
+        Card {
+            VStack {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 200)
+                    .clipped()
+                Spacer().frame(height: 8)
+                Text(title)
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+            }
+            .padding()
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+    }
+}
+
+struct CardList: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Taste Made")
+                .font(.largeTitle)
+                .multilineTextAlignment(.center)
+                .padding()
+
+            ScrollView {
+                LazyVStack {
+                    ForEach(getCardItems(), id: \.title) { cardItem in
+                        CardItem(title: cardItem.title, image: Image(cardItem.imageName))
+                            .padding(.horizontal)
+                    }
+                }
+            }
+        }
+        .padding()
+    }
+}
+
+struct CardItemData {
+    let title: String
+    let imageName: String
+}
+
+func getCardItems() -> [CardItemData] {
+    return [
+        CardItemData(title: "Breakfast", imageName: "breakfast"),
+        CardItemData(title: "Lunch", imageName: "lunch"),
+        CardItemData(title: "Dinner", imageName: "dinner"),
+        CardItemData(title: "Smoothies", imageName: "red"),
+        CardItemData(title: "Desserts", imageName: "dessert")
+    ]
+}
+
+struct App: View {
+    var body: some View {
+        ZStack {
+            Image("background")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+            Color.white.opacity(0.5)
+                .edgesIgnoringSafeArea(.all)
+            CardList()
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}

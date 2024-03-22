@@ -1,0 +1,37 @@
+
+else if (Swift3Parser.Function_call_expressionContext.class.isInstance(ctx.postfix_expression())) {
+        Swift3Parser.Function_call_expressionContext fnctx = (Swift3Parser.Function_call_expressionContext) ctx.postfix_expression();
+        if (fnctx.function_call_argument_clause().function_call_argument_list() != null)
+        if (fnctx.function_call_argument_clause().function_call_argument_list() != null)pre
+        {
+                        /*if(fnctx.function_call_argument_clause().function_call_argument_list().function_call_argument(0).expression() != null) //We don't know why we did it
+                        {
+                            Java_prefix += visitExpression(fnctx.function_call_argument_clause().function_call_argument_list().function_call_argument(0).expression());
+                        }*/
+        
+        }
+      
+        if (Swift3Parser.PrimaryContext.class.isInstance(fnctx.postfix_expression())) {
+        Swift3Parser.PrimaryContext pctx = (Swift3Parser.PrimaryContext) fnctx.postfix_expression();
+        Java_prefix += visitPrimary(pctx);
+
+      
+
+        } else if (Swift3Parser.Explicit_member_expression2Context.class.isInstance(fnctx.postfix_expression())) {
+
+        Swift3Parser.Explicit_member_expression2Context exctx = (Swift3Parser.Explicit_member_expression2Context) fnctx.postfix_expression();
+        Java_prefix += visitExplicit_member_expression2(exctx);
+
+        }
+
+
+
+ 
+        else if(fnctx.function_call_argument_clause()!=null)
+        {
+        Java_prefix += visitFunction_call_argument_clause(fnctx.function_call_argument_clause()) + ")";
+        
+        }
+        /** Soliman **/
+        /* Button_YRL conversion function */
+}
